@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you go on a date with me?</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+            background-color: #fdf2f8; /* Soft pink background */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .page {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #db2777;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .gif-container img {
+            width: 250px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Buttons */
+        .button-container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            position: relative;
+            width: 100%;
+        }
+
+        button {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn {
+            background-color: #f43f5e;
+            color: white;
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.4);
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            background-color: #e11d48;
+        }
+
+        #noBtn {
+            background-color: #e5e7eb;
+            color: #4b5563;
+            position: absolute;
+            right: 20%;
+            transition: all 0.2s ease;
+        }
+
+        /* Grid for choices */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #fbcfe8;
+            box-shadow: 0 5px 15px rgba(219, 39, 119, 0.15);
+        }
+
+        .card h3 {
+            margin: 10px 0 5px 0;
+            color: #db2777;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .emoji {
+            font-size: 2.5rem;
+        }
+
+        /* Final screen styles */
+        .summary-box {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #db2777;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .fine-print {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 30px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: The Question -->
+    <div id="page1" class="page active">
+        <div class="gif-container">
+            <!-- Pleading Cat GIF -->
+            <img src="https://media.tenor.com/Ztwu1F-77K8AAAAi/cat-stare.gif" alt="Cute Cat">
+        </div>
+        <h1>Will you go on a date with me?</h1>
+        <p style="color: #6b7280; margin-top: -20px; margin-bottom: 30px;">Choose wisely...</p>
+        
+        <div class="button-container">
+            <button id="yesBtn" onclick="nextPage('page2')">Yes</button>
+            <button id="noBtn" onmouseover="moveNoButton()">No</button>
+        </div>
+    </div>
+
+    <!-- PAGE 2: The Vibe -->
+    <div id="page2" class="page">
+        <h1>What are we feeling?</h1>
+        <p style="color: #6b7280; margin-top: -20px;">Pick our date vibe ✨</p>
+        
+        <div class="grid">
+            <div class="card" onclick="selectVibe('🍿 Movie Night')">
+                <div class="emoji">🍿</div>
+                <h3>Movie Night</h3>
+                <p>Cozy up and watch something together</p>
+            </div>
+            <div class="card" onclick="selectVibe('🧺 Picnic in the Park')">
+                <div class="emoji">🧺</div>
+                <h3>Picnic in the Park</h3>
+                <p>Blanket, snacks, and sunshine</p>
+            </div>
+            <div class="card" onclick="selectVibe('🧑‍🍳 Cook Together')">
+                <div class="emoji">🧑‍🍳</div>
+                <h3>Cook Together</h3>
+                <p>We make a mess in the kitchen</p>
+            </div>
+            <div class="card" onclick="selectVibe('🚗 Go for a Drive')">
+                <div class="emoji">🚗</div>
+                <h3>Go for a Drive</h3>
+                <p>No destination, just vibes</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: The Food -->
+    <div id="page3" class="page">
+        <h1>Now the important question...</h1>
+        <p style="color: #6b7280; margin-top: -20px;">What are we eating? 🍽️</p>
+        
+        <div class="grid">
+            <div class="card" onclick="selectFood('🍣 Sushi')">
+                <div class="emoji">🍣</div>
+                <h3>Sushi</h3>
+            </div>
+            <div class="card" onclick="selectFood('🍕 Pizza')">
+                <div class="emoji">🍕</div>
+                <h3>Pizza</h3>
+            </div>
+            <div class="card" onclick="selectFood('🍜 Ramen')">
+                <div class="emoji">🍜</div>
+                <h3>Ramen</h3>
+            </div>
+            <div class="card" onclick="selectFood('🌮 Tacos')">
+                <div class="emoji">🌮</div>
+                <h3>Tacos</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 4: Confirmation -->
+    <div id="page4" class="page">
+        <div class="gif-container">
+            <!-- Happy Cat GIF -->
+            <img src="https://media.tenor.com/9nFvT8tO6kEAAAAi/mochi-cat.gif" alt="Happy Cat">
+        </div>
+        <h1>It's a date! 💖</h1>
+        
+        <div id="finalVibe" class="summary-box"></div>
+        <div id="finalFood" class="summary-box"></div>
+        
+        <p class="fine-print">Be ready. I'm coming to get you.<br>No take-backs. This is legally binding now. 💕</p>
+    </div>
+
+    <script>
+        let selectedVibe = '';
+        let selectedFood = '';
+        let noButtonScale = 1;
+
+        // Function to make the "No" button run away and shrink
+        function moveNoButton() {
+            const btn = document.getElementById('noBtn');
+            const container = document.querySelector('.button-container');
+            
+            // Calculate random positions within the window
+            const maxX = window.innerWidth - btn.clientWidth - 50;
+            const maxY = window.innerHeight - btn.clientHeight - 50;
+            
+            const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+
+            // Change position to fixed so it can move anywhere on screen
+            btn.style.position = 'fixed';
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+
+            // Shrink the button slightly each time
+            noButtonScale -= 0.1;
+            if (noButtonScale < 0.3) noButtonScale = 0.3; // Minimum size
+            btn.style.transform = `scale(${noButtonScale})`;
+            
+            // Change the text to make it funny
+            const texts = ["Are you sure?", "Please?", "Think again!", "Nice try", "Nope!"];
+            btn.innerText = texts[Math.floor(Math.random() * texts.length)];
+        }
+
+        // Navigation functions
+        function nextPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function selectVibe(vibe) {
+            selectedVibe = vibe;
+            nextPage('page3');
+        }
+
+        function selectFood(food) {
+            selectedFood = food;
+            
+            // Update final page text before showing it
+            document.getElementById('finalVibe').innerText = selectedVibe;
+            document.getElementById('finalFood').innerText = selectedFood;
+            
+            nextPage('page4');
+        }
+    </script>
+</body>
+</html>
